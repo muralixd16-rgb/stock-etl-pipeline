@@ -29,14 +29,24 @@ CSV File → PostgreSQL → JSON Transformation → MongoDB
 ```
 stock_project/
 │
-├── google.csv
-├── load_csv_to_postgres.py
-├── postgres_to_json.py
-├── postgres_to_mongo.py
-├── requirements.txt
-├── .gitignore
-├── .env (ignored)
-└── README.md
+├── src/                        # Modular ETL components
+│   ├── extract.py
+│   ├── transform.py
+│   └── load.py
+│
+├── main.py                     # Entry point to run pipeline
+│
+├── google.csv                  # Input dataset
+├── requirements.txt            # Dependencies
+├── .gitignore                  # Ignored files
+├── .env (ignored)              # Environment variables (not pushed)
+│
+├── README.md                   # Project documentation
+│
+├── old_scripts/ (optional)     # Legacy scripts (local only, ignored)
+│   ├── load_csv_to_postgres.py
+│   ├── postgres_to_json.py
+│   └── postgres_to_mongo.py
 ```
 
 ---
