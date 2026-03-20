@@ -35,7 +35,8 @@ stock_project/
 ├── postgres_to_mongo.py
 ├── requirements.txt
 ├── .gitignore
-└──
+├── .env (ignored)
+└── README.md
 ```
 
 ---
