@@ -120,6 +120,13 @@ python postgres_to_mongo.py
 * ✔️ Scalable and modular design
 
 ---
+## 📚 Key Learnings
+
+- Built an end-to-end ETL pipeline from scratch  
+- Learned integration between relational (PostgreSQL) and NoSQL (MongoDB) databases  
+- Gained hands-on experience with data transformation and JSON conversion  
+- Implemented secure credential management using environment variables (.env)  
+- Understood real-world data engineering workflows  
 
 ## 🔒 Security Best Practices
 
