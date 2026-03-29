@@ -1,25 +1,27 @@
-# 📊 ETL Stock Data Pipeline (CSV → PostgreSQL → MongoDB)
+# 📊 ETL Stock Data Pipeline + FastAPI (CSV → PostgreSQL → MongoDB)
 
 ## 🚀 Project Overview
 
-This project demonstrates a complete **ETL (Extract, Transform, Load) pipeline** that processes stock market data across multiple data storage systems.
+This project demonstrates a complete **ETL (Extract, Transform, Load) pipeline** integrated with a **FastAPI backend** to serve stock market data through REST APIs.
 
-The pipeline extracts stock data from a CSV file, loads it into a PostgreSQL database, transforms it into JSON format, and finally stores it in a MongoDB NoSQL database.
+The pipeline extracts stock data from a CSV file, loads it into a PostgreSQL database, transforms it into JSON format, and stores it in a MongoDB NoSQL database.
+Additionally, FastAPI is used to expose this data via APIs for easy access and integration.
 
 ---
 
 ## 🛠️ Tech Stack
 
 * **Programming Language:** Python
-* **Libraries:** Pandas, Psycopg2, PyMongo, Python-Dotenv
+* **Libraries:** Pandas, Psycopg2, PyMongo, Python-Dotenv, FastAPI, Pydantic
 * **Databases:** PostgreSQL (Relational), MongoDB (NoSQL)
+* **API Server:** Uvicorn
 
 ---
 
 ## 🔄 Workflow Architecture
 
 ```
-CSV File → PostgreSQL → JSON Transformation → MongoDB
+CSV File → PostgreSQL → JSON Transformation → MongoDB → FastAPI API
 ```
 
 ---
@@ -34,7 +36,7 @@ stock_project/
 │   ├── transform.py
 │   └── load.py
 │
-├── main.py                     # Entry point to run pipeline
+├── main.py                     # FastAPI application (API layer)
 │
 ├── google.csv                  # Input dataset
 ├── requirements.txt            # Dependencies
@@ -44,9 +46,6 @@ stock_project/
 ├── README.md                   # Project documentation
 │
 ├── old_scripts/ (optional)     # Legacy scripts (local only, ignored)
-│   ├── load_csv_to_postgres.py
-│   ├── postgres_to_json.py
-│   └── postgres_to_mongo.py
 ```
 
 ---
@@ -83,7 +82,6 @@ DB_PASSWORD=your_postgresql_password
 ### 4️⃣ Setup PostgreSQL Database
 
 * Create a database named: `stockdb`
-* Create a table:
 
 ```sql
 CREATE TABLE google_stock (
@@ -99,24 +97,39 @@ CREATE TABLE google_stock (
 
 ---
 
-### 5️⃣ Run the Pipeline
-
-#### Step 1: Load CSV into PostgreSQL
+### 5️⃣ Run the ETL Pipeline
 
 ```
-python load_csv_to_postgres.py
+python main.py
 ```
 
-#### Step 2: Convert PostgreSQL data to JSON
+---
+
+## 🌐 FastAPI API Layer
+
+This project includes a FastAPI backend to expose stock data through REST APIs.
+
+### ▶️ Run the API
 
 ```
-python postgres_to_json.py
+uvicorn main:app --reload
 ```
 
-#### Step 3: Load data into MongoDB
+---
+
+### 📌 Available Endpoints
 
 ```
-python postgres_to_mongo.py
+GET /          → Check API status  
+GET /stocks    → Fetch all stock data from PostgreSQL  
+```
+
+---
+
+### 📍 Swagger UI (Interactive Docs)
+
+```
+http://127.0.0.1:8000/docs
 ```
 
 ---
@@ -125,18 +138,22 @@ python postgres_to_mongo.py
 
 * ✔️ End-to-end ETL pipeline implementation
 * ✔️ Integration of SQL and NoSQL databases
+* ✔️ REST API built using FastAPI
+* ✔️ Structured API responses using Pydantic
 * ✔️ Secure credential handling using environment variables
-* ✔️ Data transformation from structured to semi-structured format
 * ✔️ Scalable and modular design
 
 ---
+
 ## 📚 Key Learnings
 
-- Built an end-to-end ETL pipeline from scratch  
-- Learned integration between relational (PostgreSQL) and NoSQL (MongoDB) databases  
-- Gained hands-on experience with data transformation and JSON conversion  
-- Implemented secure credential management using environment variables (.env)  
-- Understood real-world data engineering workflows  
+* Built an end-to-end ETL pipeline from scratch
+* Integrated PostgreSQL (SQL) and MongoDB (NoSQL)
+* Developed REST APIs using FastAPI
+* Used Pydantic for data validation and serialization
+* Understood real-world data engineering + backend workflows
+
+---
 
 ## 🔒 Security Best Practices
 
@@ -149,18 +166,18 @@ python postgres_to_mongo.py
 ## 🎯 Use Cases
 
 * Data engineering pipelines
+* Backend API development
 * Data migration between databases
 * Real-world ETL workflows
-* Learning SQL + NoSQL integration
 
 ---
 
 ## 💡 Future Enhancements
 
-* Add data validation and cleaning
+* Add filtering/search API endpoints
 * Automate pipeline using Airflow
-* Add API layer using FastAPI
-* Deploy pipeline using Docker
+* Deploy API using Docker / Cloud
+* Add authentication to API
 
 ---
 
