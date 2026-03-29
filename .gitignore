@@ -1,4 +1,24 @@
+# 🔒 Environment variables (VERY IMPORTANT)
 .env
+
+# 🐍 Python cache files
+__pycache__/
+*.pyc
+
+
+
+# 📦 Virtual environment (if you create one)
+venv/
+env/
+
+# 📊 Jupyter notebooks (if any)
+.ipynb_checkpoints/
+
+# 🗂️ OS files
+.DS_Store
+Thumbs.db
+
+# ❌ Your local-only scripts (as you wanted)
 load_csv_to_postgres.py
 postgres_to_json.py
 postgres_to_mongo.py
