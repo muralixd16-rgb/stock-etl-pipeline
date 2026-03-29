@@ -1,132 +1,74 @@
-# 📊 ETL Stock Data Pipeline + FastAPI (CSV → PostgreSQL → MongoDB)
+# 📊 ETL Stock Data Pipeline + FastAPI
+
+### *(CSV → PostgreSQL → MongoDB)*
+
+---
 
 ## 🚀 Project Overview
 
-This project demonstrates a complete **ETL (Extract, Transform, Load) pipeline** integrated with a **FastAPI backend** to serve stock market data through REST APIs.
+This project demonstrates a complete **ETL (Extract, Transform, Load) pipeline** integrated with a **FastAPI backend**.
 
-The pipeline extracts stock data from a CSV file, loads it into a PostgreSQL database, transforms it into JSON format, and stores it in a MongoDB NoSQL database.
-Additionally, FastAPI is used to expose this data via APIs for easy access and integration.
+The pipeline extracts stock market data from a CSV file, transforms it, stores it in PostgreSQL, and then loads it into MongoDB.
+The processed data is exposed through REST APIs using FastAPI.
+
+---
+
+## 🧠 Architecture
+
+```
+CSV → Extract → Transform → PostgreSQL → MongoDB → FastAPI
+```
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Programming Language:** Python
-* **Libraries:** Pandas, Psycopg2, PyMongo, Python-Dotenv, FastAPI, Pydantic
-* **Databases:** PostgreSQL (Relational), MongoDB (NoSQL)
-* **API Server:** Uvicorn
-
----
-
-## 🔄 Workflow Architecture
-
-```
-CSV File → PostgreSQL → JSON Transformation → MongoDB → FastAPI API
-```
+* **Language:** Python
+* **ETL:** Pandas
+* **Databases:** PostgreSQL, MongoDB
+* **Backend:** FastAPI
+* **Libraries:** Psycopg2, PyMongo, Python-Dotenv
+* **Server:** Uvicorn
 
 ---
 
 ## 📂 Project Structure
 
 ```
-stock_project/
+stock-etl-pipeline/
 │
-├── src/                        # Modular ETL components
+├── api/
+│   └── main.py
+│
+├── src/
 │   ├── extract.py
 │   ├── transform.py
 │   └── load.py
 │
-├── main.py                     # FastAPI application (API layer)
-│
-├── google.csv                  # Input dataset
-├── requirements.txt            # Dependencies
-├── .gitignore                  # Ignored files
-├── .env (ignored)              # Environment variables (not pushed)
-│
-├── README.md                   # Project documentation
-│
-├── old_scripts/ (optional)     # Legacy scripts (local only, ignored)
+├── run_pipeline.py
+├── google.csv
+├── requirements.txt
+├── README.md
+├── .gitignore
 ```
 
 ---
 
-## ⚙️ Setup Instructions
+## ▶️ How to Run
 
-### 1️⃣ Clone the Repository
-
-```
-git clone https://github.com/your-username/stock-etl-pipeline.git
-cd stock-etl-pipeline
-```
-
----
-
-### 2️⃣ Install Dependencies
+### 🔹 Run ETL Pipeline
 
 ```
-pip install -r requirements.txt
+python run_pipeline.py
 ```
 
----
-
-### 3️⃣ Configure Environment Variables
-
-Create a `.env` file in the root directory:
+### 🔹 Run FastAPI Server
 
 ```
-DB_PASSWORD=your_postgresql_password
+uvicorn api.main:app --reload
 ```
 
----
-
-### 4️⃣ Setup PostgreSQL Database
-
-* Create a database named: `stockdb`
-
-```sql
-CREATE TABLE google_stock (
-    trade_date DATE,
-    open_price FLOAT,
-    high_price FLOAT,
-    low_price FLOAT,
-    close_price FLOAT,
-    adj_close_price FLOAT,
-    volume BIGINT
-);
-```
-
----
-
-### 5️⃣ Run the ETL Pipeline
-
-```
-python main.py
-```
-
----
-
-## 🌐 FastAPI API Layer
-
-This project includes a FastAPI backend to expose stock data through REST APIs.
-
-### ▶️ Run the API
-
-```
-uvicorn main:app --reload
-```
-
----
-
-### 📌 Available Endpoints
-
-```
-GET /          → Check API status  
-GET /stocks    → Fetch all stock data from PostgreSQL  
-```
-
----
-
-### 📍 Swagger UI (Interactive Docs)
+### 🔹 Open API Docs
 
 ```
 http://127.0.0.1:8000/docs
@@ -134,54 +76,23 @@ http://127.0.0.1:8000/docs
 
 ---
 
+## 📌 API Endpoints
+
+* `GET /` → API status
+* `GET /stocks` → Fetch PostgreSQL data
+* `GET /mongo-stocks` → Fetch MongoDB data
+* `POST /stocks` → Insert new stock
+* `GET /stocks/{trade_date}` → Get stock by date
+
+---
+
 ## 📊 Features
 
-* ✔️ End-to-end ETL pipeline implementation
-* ✔️ Integration of SQL and NoSQL databases
-* ✔️ REST API built using FastAPI
-* ✔️ Structured API responses using Pydantic
-* ✔️ Secure credential handling using environment variables
-* ✔️ Scalable and modular design
+* End-to-end ETL pipeline
+* SQL + NoSQL integration
+* REST API with FastAPI
+* Modular code structure
+* Secure environment variables
 
----
 
-## 📚 Key Learnings
-
-* Built an end-to-end ETL pipeline from scratch
-* Integrated PostgreSQL (SQL) and MongoDB (NoSQL)
-* Developed REST APIs using FastAPI
-* Used Pydantic for data validation and serialization
-* Understood real-world data engineering + backend workflows
-
----
-
-## 🔒 Security Best Practices
-
-* Sensitive credentials are stored in `.env`
-* `.env` is excluded using `.gitignore`
-* No hardcoded passwords in source code
-
----
-
-## 🎯 Use Cases
-
-* Data engineering pipelines
-* Backend API development
-* Data migration between databases
-* Real-world ETL workflows
-
----
-
-## 💡 Future Enhancements
-
-* Add filtering/search API endpoints
-* Automate pipeline using Airflow
-* Deploy API using Docker / Cloud
-* Add authentication to API
-
----
-
-## 👨‍💻 Author
-
-**Murali Manohar**
 
